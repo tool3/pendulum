@@ -1,28 +1,33 @@
 import Experience from '../experience';
 import Environment from './environment';
-import Shader from './shader/shader';
+import Pendulum from './pendulum';
+import Plane from './plane';
 
 export default class World {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
-    
+
     if (this.resources.sources.length) {
       this.resources.on('ready', () => {
-        console.log('triggered');
-        this.shader = new Shader();
-        this.environment = new Environment();
+        this.setupObjects();
       });
     } else {
-      this.shader = new Shader();
-      this.environment = new Environment();
+      this.setupObjects();
     }
   }
 
+  setupObjects() {
+    this.plane = new Plane();
+    this.pendulum = new Pendulum();
+    this.environment = new Environment();
+  }
+
   update() {
-    if (this.shader) {
-      this.shader.update();
+    if (this.pendulum) {
+      this.pendulum.update();
+      this.environment.update();
     }
   }
 }

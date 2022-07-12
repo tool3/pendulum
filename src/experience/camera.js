@@ -14,14 +14,16 @@ export default class Camera {
   }
 
   setInstance() {
-    this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100);
-    this.instance.position.set(0, 0, 6);
+    this.instance = new THREE.PerspectiveCamera(25, this.sizes.width / this.sizes.height, 0.1, 10000);
+    this.instance.position.set(0, 5, 25);
+
     this.scene.add(this.instance);
   }
 
   setOrbitControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
+    this.controls.enabled = true;
   }
 
   resize() {
