@@ -33,7 +33,6 @@ export default class Pendulum {
           child.material.emissiveIntensity = 0.5;
           child.material.emissive = new THREE.Color('#fb8b23');
         } else {
-          // child.material.metalness 
           console.log(child.material);
         }
       }
