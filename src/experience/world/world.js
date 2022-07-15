@@ -2,6 +2,7 @@ import Experience from '../experience';
 import Environment from './environment';
 import Pendulum from './pendulum';
 import Plane from './plane';
+import Text from './text';
 
 export default class World {
   constructor() {
@@ -21,6 +22,7 @@ export default class World {
   setupObjects() {
     this.plane = new Plane();
     this.pendulum = new Pendulum();
+    // this.text = new Text('Pendulum');
     this.environment = new Environment();
   }
 

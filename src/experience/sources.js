@@ -1,5 +1,6 @@
 import { TextureLoader, CubeTextureLoader } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 
 export default [
   {
@@ -13,6 +14,11 @@ export default [
       'textures/environmentMap/nz.jpg'
     ],
     loader: CubeTextureLoader
+  },
+  {
+    name: 'font',
+    path: ['fonts/gotham.typeface.json'],
+    loader: FontLoader
   },
   {
     name: 'pendulum',

@@ -69,7 +69,7 @@ export default class Environment {
     this.sunLight.shadow.mapSize.set(1024, 1024);
     this.sunLight.shadow.normalBias = 0.05;
     this.sunLight.position.set(3.5, 2, -1.25);
-    this.scene.background = this.debugObject.background;
+    this.scene.background = this.debugObject?.background || '#100f10';
     this.scene.add(this.sunLight);
 
     if (this.debugFolder) {
@@ -116,7 +116,7 @@ export default class Environment {
   }
 
   update() {
-    this.spotlightHelper.update();
+    // this.spotlightHelper.update();
     // this.areaLightHelper.update();
   }
 }

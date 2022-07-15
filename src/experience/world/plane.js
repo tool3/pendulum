@@ -95,7 +95,6 @@ export default class Plane {
     this.mirror.scale.copy(this.mesh.scale);
     // this.mirror.position.y -= 0.3;
     // this.mirror.mirror = 1;
-    console.log(this.mirror);
     // mirror={1} blur={[500, 100]} mixBlur={12} mixStrength={1.5} rotation={[-Math.PI / 2, 0, Math.PI / 2]} position-y={-0.8}
 
 
