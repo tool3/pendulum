@@ -15,11 +15,11 @@ export default [
     ],
     loader: CubeTextureLoader
   },
-  {
-    name: 'font',
-    path: ['fonts/squada.typeface.json'],
-    loader: FontLoader
-  },
+ {
+   name: 'font',
+  path: ['fonts/squada.typeface.json'],
+  loader: FontLoader
+ },
   {
     name: 'pendulum',
     path: ['models/pendulum.glb'],
