@@ -52,10 +52,14 @@ export default class Pendulum {
 
   setDebug() {
     this.debugObject = {
-      speed: 2
+      speed: 2,
+      swing: false
     };
     if (this.debug.active) {
       this.debugFolder.addInput(this.debugObject, 'speed', { min: 0.00001, max: 10, step: 0.001 });
+      this.debugFolder.addButton({ title: 'swing' }).on('click', () => {
+        this.debugObject.swing = !this.debugObject.swing;
+      });
     }
   }
 
@@ -70,5 +74,10 @@ export default class Pendulum {
     });
 
     this.rate += 0.001;
+
+    if (this.debugObject.swing) {
+      const amplitude = (3 - 0.4) / 2;
+      this.camera.instance.rotation.y = (amplitude / 30) * Math.cos(this.rate + this.time.getElapsedTime());
+    }
   }
 }

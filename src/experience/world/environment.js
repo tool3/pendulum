@@ -31,7 +31,7 @@ export default class Environment {
   setSpotLight() {
     this.spotLight = new THREE.SpotLight('#ffffff', 10);
     this.spotLight.castShadow = true;
-    this.spotLight.power = 100;
+    this.spotLight.power = 200;
     this.spotLight.scale.set(0.1, 0.1, 0.1);
     this.spotLight.distance = 30;
     this.spotLight.shadow.camera.far = 100;
@@ -45,20 +45,17 @@ export default class Environment {
   }
 
   setAreaLight() {
-    this.areaLight = new THREE.SpotLight(0xffffff);
-    // this.areaLightHelper = new RectAreaLightHelper(this.areaLight);
-    // this.areaLight.position.z -= 30;
-    // this.areaLight.rotateX(180);
-    this.areaLight.position.copy(this.spotLight.position);
-    this.areaLight.position.z -= 10;
-    this.areaLight.position.y -= 12;
-    this.areaLight.position.x -= 10;
-    this.areaLight.lookAt(this.world.plane.mesh.position);
-    this.areaLight.intensity = 1;
-    this.areaLight.power = 20;
-    this.areaLight.castShadow = true;
-    this.scene.add(this.areaLight);
-    // this.scene.add(this.areaLightHelper);
+    this.spotLight = new THREE.SpotLight('#ffffff', 10);
+    this.spotLight.castShadow = true;
+    this.spotLight.power = 200;
+    this.spotLight.scale.set(0.1, 0.1, 0.1);
+    this.spotLight.distance = 30;
+    this.spotLight.shadow.camera.far = 100;
+    this.spotLight.shadow.normalBias = 0.05;
+    this.spotLight.penumbra = 1;
+    this.spotLight.position.set(18, 0, 0);
+    this.spotLight.target = this.world.plane.mesh;
+    this.scene.add(this.spotLight);
   }
 
   setSunLight() {
@@ -102,7 +99,7 @@ export default class Environment {
       this.debugFolder.addInput(this.envMap, 'intensity', { min: 0.01, max: 10.0, step: 0.001 }).on('change', (val) => {
         this.envMap.updateMaterials();
       });
-      this.debugFolder.addButton({title: 'Use Env Map'}).on('click', (val) => {
+      this.debugFolder.addButton({title: 'use env map'}).on('click', (val) => {
         this.debugObject.useEnvMap = !this.debugObject.useEnvMap;
         if (this.debugObject.useEnvMap) {
           this.scene.background = this.resource;
