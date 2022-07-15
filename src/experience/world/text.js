@@ -54,6 +54,6 @@ export default class Text {
   }
 
   setAnimation() {
-    gsap.from(this.camera.instance.position, { z: -15, ease: 'expo.out', duration: 3 })
+    gsap.from(this.camera.instance.position, { z: -1, ease: 'expo.out', duration: 3 })
   }
 }

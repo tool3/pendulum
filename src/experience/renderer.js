@@ -28,8 +28,7 @@ export default class Renderer {
 
   setInstance() {
     this.instance = new THREE.WebGLRenderer({
-      canvas: this.canvas,
-     // antialias: true,
+      canvas: this.canvas
     });
 
     this.instance.physicallyCorrectLights = true;
