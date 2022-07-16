@@ -29,7 +29,7 @@ export default class Text {
       bevelThickness: 1,
       bevelSize: 0.02,
       bevelOffset: 0,
-      bevelSegments: 4,
+      bevelSegments: 4
     });
   }
 
@@ -54,6 +54,7 @@ export default class Text {
   }
 
   setAnimation() {
-    gsap.from(this.camera.instance.position, { z: -1, ease: 'expo.out', duration: 3 })
+    gsap.from(this.camera.instance.position, { z: 0, y: 0, ease: 'expo.out', duration: 3 });
+    // gsap.to(this.camera.instance.position, { x: 10, y: 0, ease: 'expo.out', duration: 3 });
   }
 }

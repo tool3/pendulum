@@ -44,8 +44,8 @@ export default class Pendulum {
     this.model.translateY(-28);
     this.model.updateMatrix();
 
-    this.camera.instance.position.y = -1;
-    this.camera.instance.position.z = -100;
+    this.camera.instance.position.y = 30;
+    this.camera.instance.position.z = -120;
     this.camera.controls.target.set(0, -13, -9);
     this.camera.controls.maxPolarAngle = Math.PI / 2 - 0.1;
   }
