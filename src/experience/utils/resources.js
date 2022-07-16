@@ -29,9 +29,6 @@ export default class Resources extends EventEmitter {
   load() {
     for (const source of this.sources) {
       const name = this.getLoaderName(source.loader);
-      // if (name === 'AudioLoader') {
-      //   return this.trigger('ready');
-      // }
       this.loaders[name].load(source.path, (file) => this.sourceLoaded(source, file));
     }
   }

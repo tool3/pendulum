@@ -6,7 +6,6 @@ const path = require('path');
 module.exports = {
   entry: path.resolve(__dirname, '../src/script.js'),
   output: {
-    hashFunction: 'xxhash64',
     filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, '../dist')
   },
@@ -45,25 +44,27 @@ module.exports = {
       // Images
       {
         test: /\.(jpg|png|gif|svg)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/[hash][ext]'
-        }
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/images/'
+            }
+          }
+        ]
       },
 
       // Fonts
       {
         test: /\.(ttf|eot|woff|woff2)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/fonts/[hash][ext]'
-        }
-      },
-      // Shaders
-      {
-        test: /\.(glsl|vs|fs|vert|frag)$/,
-        exclude: /node_modules/,
-        use: ['raw-loader', 'glslify-loader']
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/fonts/'
+            }
+          }
+        ]
       }
     ]
   }

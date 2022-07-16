@@ -2,7 +2,7 @@
   "repository": "organic",
   "license": "THC",
   "scripts": {
-    "build": "webpack --config ./bundler/webpack.prod.js",
+    "build": "webpack --config ./bundler/webpack.dev.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js"
   },
   "dependencies": {
