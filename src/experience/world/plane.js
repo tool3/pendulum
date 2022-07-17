@@ -34,41 +34,43 @@ export default class Plane {
   }
 
   setMaterials() {
-    // const displacementShader = {
-    //   uniforms: {
-    //     tDiffuse: { value: null },
-    //     uNormalMap: { value: this.textures.normal }
-    //   },
-    //   vertexShader: `
-    //         varying vec2 vUv;
-    //         void main() {
-    //             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    //             vUv = uv;
-    //         }
-    //         `,
-    //   fragmentShader: `
-    //         uniform sampler2D tDiffuse;
-    //         uniform sampler2D uNormalMap;
+    const displacementShader = {
+      uniforms: {
+        tDiffuse: { value: null },
+        uNormalMap: { value: this.textures.normal }
+      },
+      vertexShader: `
+            varying vec2 vUv;
+            void main() {
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                vUv = uv;
+            }
+            `,
+      fragmentShader: `
+            uniform sampler2D tDiffuse;
+            uniform sampler2D uNormalMap;
 
-    //         varying vec2 vUv;
+            varying vec2 vUv;
 
-    //         void main() {
-    //             vec3 normalColor = texture2D(uNormalMap, vUv).xyz * 2.0 - 1.0;
-    //             vec2 newUv = vUv + normalColor.xy * 0.1;
-    //             vec4 color = texture2D(tDiffuse, newUv);
+            void main() {
+                vec3 normalColor = texture2D(uNormalMap, vUv).xyz * 2.0 - 1.0;
+                vec2 newUv = vUv + normalColor.xy * 0.1;
+                vec4 color = texture2D(tDiffuse, newUv);
 
-    //             vec3 lightDirection = normalize(vec3(-1.0, 1.0, 0.0));
-    //             float lightness = clamp(dot(normalColor, lightDirection), 0.0, 1.0);
-    //             color += lightness;
+                vec3 lightDirection = normalize(vec3(-1.0, 1.0, 0.0));
+                float lightness = clamp(dot(normalColor, lightDirection), 0.0, 1.0);
+                color += lightness;
 
-    //             gl_FragColor = color;
-    //         }
-    //         `
-    // };
-    this.material = new THREE.MeshStandardMaterial({
+                gl_FragColor = color;
+            }
+            `
+    };
+    this.material = new THREE.MeshPhysicalMaterial({
       normalMap: this.textures.normal,
       roughnessMap: this.textures.roughness,
-
+      reflectivity: 1,
+      specular: 0xffffff,
+      shininess: 100,
       roughness: 0,
       normalScale: new THREE.Vector2(1, 1),
       metalness: 0,

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import Experience from './experience';
 
 export default class Renderer {
@@ -43,6 +44,9 @@ export default class Renderer {
 
   setPostProcess() {
     this.postProcess = {};
+    this.bloomLayer = new THREE.Layers();
+    this.bloomLayer.set(1);
+    this.darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' });
 
     this.postProcess.renderPass = new RenderPass(this.scene, this.camera.instance);
 
@@ -54,7 +58,6 @@ export default class Renderer {
       0
     );
     this.postProcess.unrealBloomPass.enabled = true;
-
     this.postProcess.unrealBloomPass.tintColor = {};
     this.postProcess.unrealBloomPass.tintColor.value = '#b1a884';
     this.postProcess.unrealBloomPass.tintColor.instance = new THREE.Color(
@@ -132,12 +135,62 @@ void main() {
       format: THREE.RGBFormat,
       encoding: THREE.sRGBEncoding
     });
-    this.postProcess.composer = new EffectComposer(this.instance, this.renderTarget);
+    this.postProcess.composer = new EffectComposer(this.instance);
+    this.postProcess.composer.renderToScreen = false;
+
     this.postProcess.composer.setSize(this.sizes.width, this.sizes.height);
     this.postProcess.composer.setPixelRatio(this.sizes.pixelRatio);
 
     this.postProcess.composer.addPass(this.postProcess.renderPass);
     this.postProcess.composer.addPass(this.postProcess.unrealBloomPass);
+    console.log(this.postProcess.composer.renderTarget2);
+    const finalPass = new ShaderPass(
+      new THREE.ShaderMaterial({
+        uniforms: {
+          baseTexture: { value: null },
+          bloomTexture: { value: this.postProcess.composer.renderTarget2.texture }
+        },
+        vertexShader: `
+        varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+        `,
+        fragmentShader: `
+			uniform sampler2D baseTexture;
+			uniform sampler2D bloomTexture;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+			}
+        `,
+        defines: {}
+      }),
+      'baseTexture'
+    );
+    finalPass.needsSwap = true;
+
+    this.finalComposer = new EffectComposer(this.instance);
+    this.finalComposer.addPass(this.postProcess.renderPass);
+    this.finalComposer.addPass(finalPass);
+  }
+
+  darkenNonBloomed(obj) {
+    this.materials = {};
+    // console.log(obj.layers);
+    if (obj.isMesh && this.bloomLayer.test(obj.layers) === false) {
+      this.materials[obj.uuid] = obj.material;
+      // obj.material = this.darkMaterial;
+    }
   }
 
   resize() {
@@ -148,6 +201,8 @@ void main() {
   update() {
     if (this.usePostprocess) {
       this.postProcess.composer.render();
+      this.scene.traverse((child) => this.darkenNonBloomed(child));
+      this.finalComposer.render();
     } else {
       this.instance.render(this.scene, this.camera.instance);
     }
