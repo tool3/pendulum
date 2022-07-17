@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js';
 
-
 import Experience from '../experience';
 
 export default class Plane {
@@ -69,6 +68,7 @@ export default class Plane {
     this.material = new THREE.MeshStandardMaterial({
       normalMap: this.textures.normal,
       roughnessMap: this.textures.roughness,
+
       roughness: 0,
       normalScale: new THREE.Vector2(1, 1),
       metalness: 0,
@@ -92,8 +92,6 @@ export default class Plane {
     //   textureHeight: window.innerHeight * window.devicePixelRatio,
     //   color: 0x777777
     // });
-    
-    
 
     // this.mirror.rotation.copy(this.mesh.rotation);
     // this.mirror.position.copy(this.mesh.position);

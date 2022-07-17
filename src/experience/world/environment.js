@@ -42,6 +42,9 @@ export default class Environment {
     this.scene.add(this.spotLight);
     this.spotlightHelper = new THREE.SpotLightHelper(this.spotLight);
     // this.scene.add(this.spotlightHelper);
+    if (this.debugFolder) {
+      this.debugFolder.addInput(this.spotLight, 'intensity', { label: 'spotLight', min: 0, max: 100 });
+    }
   }
 
   setAreaLight() {
@@ -99,7 +102,7 @@ export default class Environment {
       this.debugFolder.addInput(this.envMap, 'intensity', { min: 0.01, max: 10.0, step: 0.001 }).on('change', (val) => {
         this.envMap.updateMaterials();
       });
-      this.debugFolder.addButton({title: 'use env map'}).on('click', (val) => {
+      this.debugFolder.addButton({ title: 'use env map' }).on('click', (val) => {
         this.debugObject.useEnvMap = !this.debugObject.useEnvMap;
         if (this.debugObject.useEnvMap) {
           this.scene.background = this.resource;

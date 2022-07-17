@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { MeshLambertMaterial, MeshStandardMaterial } from 'three';
 import Experience from '../experience';
 
 export default class Pendulum {
@@ -32,8 +33,11 @@ export default class Pendulum {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true;
         if (child.material.name !== 'metal') {
-          child.material.emissiveIntensity = 1;
-          child.material.emissive = new THREE.Color('#fb8b23');
+          // child.material.emissiveIntensity = 1;
+          // child.material.emissive = new THREE.Color('#fb8b23');
+          child.material = new MeshLambertMaterial({ emissiveIntensity: 1, emissive: '#ffffff' });
+        } else {
+          child.material.roughness = 1;
         }
       }
     });
