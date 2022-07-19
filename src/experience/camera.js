@@ -15,8 +15,8 @@ export default class Camera {
   }
 
   setInstance() {
-    this.instance = new THREE.PerspectiveCamera(25, this.sizes.width / this.sizes.height, 0.1, 10000);
-    this.instance.position.set(0, 5, 30);
+    this.instance = new THREE.PerspectiveCamera(70, this.sizes.width / this.sizes.height, 0.1, 10000);
+    this.instance.position.set(0, 5, 10);
 
     this.scene.add(this.instance);
   }

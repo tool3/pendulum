@@ -34,37 +34,6 @@ export default class Plane {
   }
 
   setMaterials() {
-    const displacementShader = {
-      uniforms: {
-        tDiffuse: { value: null },
-        uNormalMap: { value: this.textures.normal }
-      },
-      vertexShader: `
-            varying vec2 vUv;
-            void main() {
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                vUv = uv;
-            }
-            `,
-      fragmentShader: `
-            uniform sampler2D tDiffuse;
-            uniform sampler2D uNormalMap;
-
-            varying vec2 vUv;
-
-            void main() {
-                vec3 normalColor = texture2D(uNormalMap, vUv).xyz * 2.0 - 1.0;
-                vec2 newUv = vUv + normalColor.xy * 0.1;
-                vec4 color = texture2D(tDiffuse, newUv);
-
-                vec3 lightDirection = normalize(vec3(-1.0, 1.0, 0.0));
-                float lightness = clamp(dot(normalColor, lightDirection), 0.0, 1.0);
-                color += lightness;
-
-                gl_FragColor = color;
-            }
-            `
-    };
     this.material = new THREE.MeshPhysicalMaterial({
       normalMap: this.textures.normal,
       roughnessMap: this.textures.roughness,
@@ -111,9 +80,5 @@ export default class Plane {
     // mirror={1} blur={[500, 100]} mixBlur={12} mixStrength={1.5} rotation={[-Math.PI / 2, 0, Math.PI / 2]} position-y={-0.8}
 
     this.scene.add(this.mesh);
-
-    // this.helper = new THREE.PlaneHelper(this.geometry, 1, 0xffff00);
-    // this.scene.add(this.helper);
-    // this.scene.add(this.mirror);
   }
 }
