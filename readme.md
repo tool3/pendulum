@@ -1,5 +1,7 @@
 # Pendulums
 
+![](/static/images/cover_high.png)
+
 A THREEJS project inspired by Asbjorn's Pendulum Tutorial
 
 Modeled in Blender
