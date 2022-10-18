@@ -2,7 +2,7 @@
 
 ![](/static/images/cover_high.png)
 
-A THREEJS project inspired by Asbjorn's Pendulum Tutorial
+A THREEJS project inspired by Asbjorn's (polyfjord) [Pendulum Tutorial](https://youtu.be/5pOz-N2p4xs)
 
 Modeled in Blender
 Works (smoothly!) on mobile
