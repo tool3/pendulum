@@ -186,10 +186,8 @@ void main() {
 
   darkenNonBloomed(obj) {
     this.materials = {};
-    // console.log(obj.layers);
     if (obj.isMesh && this.bloomLayer.test(obj.layers) === false) {
       this.materials[obj.uuid] = obj.material;
-      // obj.material = this.darkMaterial;
     }
   }
 
