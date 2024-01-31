@@ -53,7 +53,7 @@ export default class Renderer {
     // Bloom pass
     this.postProcess.unrealBloomPass = new UnrealBloomPass(
       new THREE.Vector2(this.sizes.width, this.sizes.height),
-      0.815,
+      1,
       0.0,
       0
     );
@@ -186,10 +186,8 @@ void main() {
 
   darkenNonBloomed(obj) {
     this.materials = {};
-    // console.log(obj.layers);
     if (obj.isMesh && this.bloomLayer.test(obj.layers) === false) {
       this.materials[obj.uuid] = obj.material;
-      // obj.material = this.darkMaterial;
     }
   }
 
