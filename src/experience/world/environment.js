@@ -99,7 +99,7 @@ export default class Environment {
     };
 
     if (this.debugFolder) {
-      this.debugFolder.addInput(this.envMap, 'intensity', { label: 'envMapIntensity', min: 0.01, max: 10.0, step: 0.001 }).on('change', (val) => {
+      this.debugFolder.addInput(this.envMap, 'intensity', { label: 'envMapIntensity', min: 0.01, max: 0.5, step: 0.001 }).on('change', (val) => {
         this.envMap.updateMaterials();
       });
       this.debugFolder.addButton({ title: 'use env map' }).on('click', (val) => {
