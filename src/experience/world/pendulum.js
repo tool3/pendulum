@@ -20,7 +20,7 @@ export default class Pendulum {
     };
 
     if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder({ title: 'pendulum' });
+      this.debugFolder = this.debug.ui.addFolder({ title: 'pendulums' });
     }
 
     this.resource = this.resources.items.pendulum;

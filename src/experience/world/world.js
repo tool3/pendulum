@@ -22,7 +22,7 @@ export default class World {
   setupObjects() {
     this.plane = new Plane();
     this.pendulum = new Pendulum();
-    this.text = new Text('Pendulum');
+    this.text = new Text('Pendulums');
     this.environment = new Environment();
   }
 
